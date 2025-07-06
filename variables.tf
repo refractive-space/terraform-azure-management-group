@@ -41,7 +41,7 @@ variable "subscription_ids" {
   
   validation {
     condition = alltrue([
-      for id in var.subscription_ids : can(regex("^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$", id))
+      for id in coalesce(var.subscription_ids, []) : can(regex("^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$", id))
     ])
     error_message = "All subscription IDs must be valid UUIDs."
   }
