@@ -28,8 +28,8 @@ variable "parent_management_group_id" {
   default     = ""
   
   validation {
-    condition     = var.parent_management_group_id == "" || can(regex("^[a-zA-Z0-9-_\\.\\(\\)]+$", var.parent_management_group_id))
-    error_message = "Parent management group ID must contain only alphanumeric characters, hyphens, underscores, periods, and parentheses."
+    condition = var.parent_management_group_id == "" || can(regex("^[a-zA-Z0-9-_\\.\\(\\)]+$", var.parent_management_group_id)) || can(regex("^/providers/Microsoft\\.Management/managementGroups/[a-zA-Z0-9-_\\.\\(\\)]+$", var.parent_management_group_id))
+    error_message = "Parent management group ID must be a simple ID (alphanumeric characters, hyphens, underscores, periods, and parentheses) or a full Azure resource ID in the format '/providers/Microsoft.Management/managementGroups/{id}'."
   }
 }
 
